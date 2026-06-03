@@ -1,222 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/webp" href="Icon.webp">
-<title>Mermaid Isle</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Raleway:wght@300;400&display=swap');
+<!-- saved from url=(0045)file:///C:/Users/cordi/Downloads/index_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/webp" href="file:///C:/Users/cordi/Downloads/Icon.webp">
+  <title>Mermaid Isle</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Raleway:wght@300;400&display=swap');
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    min-height: 100vh;
-    background: #0a1628;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    font-family: 'Raleway', sans-serif;
-  }
+    body {
+      min-height: 100vh;
+      background: #0a1628;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Raleway', sans-serif;
+    }
 
-  .scene {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  canvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-  }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-  .title-wrap {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    user-select: none;
-  }
+    .title-wrap {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      user-select: none;
+    }
 
-  h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2.5rem, 8vw, 6rem);
-    font-weight: 400;
-    color: #e8f4f8;
-    letter-spacing: 0.15em;
-    text-shadow: 0 0 60px rgba(100,200,255,0.4), 0 2px 4px rgba(0,0,0,0.8);
-    animation: breathe 4s ease-in-out infinite;
-  }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 400;
+      color: #e8f4f8;
+      letter-spacing: 0.15em;
+      text-shadow: 0 0 60px rgba(100,200,255,0.4), 0 2px 4px rgba(0,0,0,0.8);
+      animation: breathe 4s ease-in-out infinite;
+    }
 
-  .sub {
-    margin-top: 1rem;
-    font-size: clamp(0.7rem, 2vw, 1rem);
-    font-weight: 300;
-    color: rgba(180,220,240,0.6);
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-  }
+    .sub {
+      margin-top: 1rem;
+      font-size: clamp(0.7rem, 2vw, 1rem);
+      font-weight: 300;
+      color: rgba(180,220,240,0.6);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+    }
 
-  @keyframes breathe {
-    0%, 100% { opacity: 0.9; text-shadow: 0 0 60px rgba(100,200,255,0.3), 0 2px 4px rgba(0,0,0,0.8); }
-    50% { opacity: 1; text-shadow: 0 0 80px rgba(100,220,255,0.6), 0 2px 4px rgba(0,0,0,0.8); }
-  }
-</style>
+    @keyframes breathe {
+      0%, 100% { opacity: 0.9; text-shadow: 0 0 60px rgba(100,200,255,0.3), 0 2px 4px rgba(0,0,0,0.8); }
+      50%       { opacity: 1;   text-shadow: 0 0 80px rgba(100,220,255,0.6), 0 2px 4px rgba(0,0,0,0.8); }
+    }
+  </style>
 </head>
 <body>
-<audio id="bg-audio" loop src="Mermaid_Official_Theme.mp3"></audio>
-<div class="scene">
-  <canvas id="c"></canvas>
-  <div class="title-wrap">
-    <h1>Mermaid Isle</h1>
-    <p class="sub">website coming soon</p>
+  <audio id="bg-audio" loop="" src="Mermaid_Official_Theme.mp3"></audio>
+  <div class="scene">
+    <canvas id="c" width="2560" height="1305"></canvas>
+    <div class="title-wrap">
+      <h1>Mermaid Isle</h1>
+      <p class="sub">website coming soon</p>
+    </div>
   </div>
-</div>
-<script>
-  const canvas = document.getElementById('c');
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [], stars = [];
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [], stars = [];
 
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-
-  function initStars() {
-    stars = [];
-    for (let i = 0; i < 120; i++) {
-      stars.push({
-        x:     Math.random() * W,
-        y:     Math.random() * H * 0.6,
-        r:     Math.random() * 1.2 + 0.3,
-        o:     Math.random() * 0.5 + 0.3,
-        speed: Math.random() * 0.005 + 0.002,
-      });
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
     }
-  }
 
-  function initParticles() {
-    particles = [];
-    for (let i = 0; i < 60; i++) {
-      spawnParticle();
+    function getTimeOfDay() {
+      const now = new Date();
+      return (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) / 86400;
     }
-  }
 
-  function spawnParticle(fromBottom) {
-    const x = Math.random() * W;
-    particles.push({
-      x,
-      y:    fromBottom ? H + 10 : Math.random() * H,
-      vy:   -(Math.random() * 0.4 + 0.1),
-      vx:   (Math.random() - 0.5) * 0.3,
-      r:    Math.random() * 2 + 1,
-      o:    Math.random() * 0.4 + 0.1,
-      life: Math.random(),
-    });
-  }
+    function smoothstep(a, b, t) {
+      t = Math.max(0, Math.min(1, (t - a) / (b - a)));
+      return t * t * (3 - 2 * t);
+    }
 
-  let t = 0;
+    function lerpColor(a, b, t) {
+      return [
+        Math.round(a[0] + (b[0] - a[0]) * t),
+        Math.round(a[1] + (b[1] - a[1]) * t),
+        Math.round(a[2] + (b[2] - a[2]) * t)
+      ];
+    }
 
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
+    function rgb(c)     { return `rgb(${c[0]},${c[1]},${c[2]})`; }
+    function rgba(c, a) { return `rgba(${c[0]},${c[1]},${c[2]},${a})`; }
 
-    const grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0,   '#04080f');
-    grad.addColorStop(0.5, '#071428');
-    grad.addColorStop(1,   '#0d2240');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
+    const palettes = {
+      night: { top: [4,8,15],     bot: [13,34,64]   },
+      dawn:  { top: [30,20,60],   bot: [180,80,40]  },
+      day:   { top: [30,100,200], bot: [100,180,255] },
+      dusk:  { top: [20,30,80],   bot: [200,80,30]  },
+    };
 
-    stars.forEach(s => {
-      s.o += Math.sin(t * s.speed * 10) * 0.005;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(210,235,255,${s.o})`;
-      ctx.fill();
-    });
+    function getSkyColors(tod) {
+      let top, bot;
 
-    const waveY = H * 0.65;
-    for (let w = 0; w < 3; w++) {
-      const off   = w * 0.8;
-      const alpha = 0.06 - w * 0.015;
-      const amp   = 18 - w * 4;
-
-      ctx.beginPath();
-      ctx.moveTo(0, waveY + w * 12);
-
-      for (let x = 0; x <= W; x += 4) {
-        const y = waveY + w * 12
-          + Math.sin((x / W) * Math.PI * 4 + t * 0.8 + off) * amp
-          + Math.sin((x / W) * Math.PI * 7 + t * 0.5 + off) * (amp * 0.4);
-        ctx.lineTo(x, y);
+      if (tod < 0.2) {
+        const t = smoothstep(0.15, 0.2, tod);
+        top = lerpColor(palettes.night.top, palettes.dawn.top, t);
+        bot = lerpColor(palettes.night.bot, palettes.dawn.bot, t);
+      } else if (tod < 0.29) {
+        const t = smoothstep(0.2, 0.29, tod);
+        top = lerpColor(palettes.dawn.top, palettes.day.top, t);
+        bot = lerpColor(palettes.dawn.bot, palettes.day.bot, t);
+      } else if (tod < 0.7) {
+        top = palettes.day.top;
+        bot = palettes.day.bot;
+      } else if (tod < 0.79) {
+        const t = smoothstep(0.7, 0.79, tod);
+        top = lerpColor(palettes.day.top, palettes.dusk.top, t);
+        bot = lerpColor(palettes.day.bot, palettes.dusk.bot, t);
+      } else if (tod < 0.88) {
+        const t = smoothstep(0.79, 0.88, tod);
+        top = lerpColor(palettes.dusk.top, palettes.night.top, t);
+        bot = lerpColor(palettes.dusk.bot, palettes.night.bot, t);
+      } else {
+        top = palettes.night.top;
+        bot = palettes.night.bot;
       }
 
-      ctx.lineTo(W, H);
-      ctx.lineTo(0, H);
-      ctx.closePath();
-
-      const wg = ctx.createLinearGradient(0, waveY, 0, H);
-      wg.addColorStop(0, `rgba(30,100,160,${alpha + 0.08})`);
-      wg.addColorStop(1, `rgba(10,40,90,${alpha + 0.15})`);
-      ctx.fillStyle = wg;
-      ctx.fill();
+      return { top, bot };
     }
 
-    // Particles
-    particles = particles.filter(p => p.y > -10 && p.o > 0.01);
-    while (particles.length < 60) spawnParticle(true);
+    function getStarOpacity(tod) {
+      if (tod < 0.2)  return 1;
+      if (tod < 0.29) return 1 - smoothstep(0.2, 0.29, tod);
+      if (tod < 0.7)  return 0;
+      if (tod < 0.79) return smoothstep(0.7, 0.79, tod);
+      return 1;
+    }
 
-    particles.forEach(p => {
-      p.y    += p.vy;
-      p.x    += p.vx;
-      p.life += 0.003;
-      const fade = Math.sin(p.life * Math.PI);
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(120,210,255,${p.o * fade})`;
-      ctx.fill();
-    });
+    function getSunOpacity(tod) {
+      if (tod < 0.2)  return 0;
+      if (tod < 0.29) return smoothstep(0.2, 0.29, tod);
+      if (tod < 0.7)  return 1;
+      if (tod < 0.79) return 1 - smoothstep(0.7, 0.79, tod);
+      return 0;
+    }
 
-    const moonX = W * 0.78;
-    const moonY = H * 0.15;
+    function getMoonOpacity(tod) {
+      if (tod < 0.2)  return 1;
+      if (tod < 0.29) return 1 - smoothstep(0.2, 0.29, tod);
+      if (tod < 0.7)  return 0;
+      if (tod < 0.79) return smoothstep(0.7, 0.79, tod);
+      return 1;
+    }
 
-    const mg = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 50);
-    mg.addColorStop(0, 'rgba(220,240,255,0.18)');
-    mg.addColorStop(1, 'rgba(220,240,255,0)');
-    ctx.fillStyle = mg;
-    ctx.beginPath();
-    ctx.arc(moonX, moonY, 50, 0, Math.PI * 2);
-    ctx.fill();
+    function getSunPosition(tod) {
+      const clamped = Math.max(0, Math.min(1, (tod - 0.25) / 0.5));
+      return {
+        x: W * (0.1 + clamped * 0.8),
+        y: H * 0.6 - Math.sin(clamped * Math.PI) * H * 0.5
+      };
+    }
 
-    ctx.beginPath();
-    ctx.arc(moonX, moonY, 22, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(220,235,255,0.9)';
-    ctx.fill();
+    function initStars() {
+      stars = [];
+      for (let i = 0; i < 120; i++) {
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H * 0.6,
+          r: Math.random() * 1.2 + 0.3,
+          o: Math.random() * 0.5 + 0.3,
+          speed: Math.random() * 0.005 + 0.002
+        });
+      }
+    }
 
-    t += 0.01;
-    requestAnimationFrame(draw);
-  }
+    function spawnParticle(fromBottom) {
+      particles.push({
+        x:    Math.random() * W,
+        y:    fromBottom ? H + 10 : Math.random() * H,
+        vy:   -(Math.random() * 0.4 + 0.1),
+        vx:   (Math.random() - 0.5) * 0.3,
+        r:    Math.random() * 2 + 1,
+        o:    Math.random() * 0.4 + 0.1,
+        life: Math.random()
+      });
+    }
 
-  resize();
-  initStars();
-  initParticles();
-  draw();
+    for (let i = 0; i < 60; i++) spawnParticle(false);
 
-  window.addEventListener('resize', () => {
+    let t = 0;
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      const tod    = getTimeOfDay();
+      const { top, bot } = getSkyColors(tod);
+      const starOp = getStarOpacity(tod);
+      const sunOp  = getSunOpacity(tod);
+      const moonOp = getMoonOpacity(tod);
+
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, rgb(top));
+      grad.addColorStop(1, rgb(bot));
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      if (starOp > 0) {
+        stars.forEach(s => {
+          s.o += Math.sin(t * s.speed * 10) * 0.005;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(210,235,255,${s.o * starOp})`;
+          ctx.fill();
+        });
+      }
+
+      if (sunOp > 0) {
+        const { x: sx, y: sy } = getSunPosition(tod);
+        const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, 120);
+        sg.addColorStop(0, `rgba(255,220,100,${0.25 * sunOp})`);
+        sg.addColorStop(1, `rgba(255,180,50,0)`);
+        ctx.fillStyle = sg;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 120, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(sx, sy, 28, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,230,80,${sunOp})`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(sx - 6, sy - 6, 10, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,200,${0.6 * sunOp})`;
+        ctx.fill();
+      }
+
+      if (moonOp > 0) {
+        const moonX = W * 0.78;
+        const moonY = H * 0.15;
+        const mg = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 50);
+        mg.addColorStop(0, `rgba(220,240,255,${0.18 * moonOp})`);
+        mg.addColorStop(1, `rgba(220,240,255,0)`);
+        ctx.fillStyle = mg;
+        ctx.beginPath();
+        ctx.arc(moonX, moonY, 50, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(moonX, moonY, 22, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(220,235,255,${moonOp})`;
+        ctx.fill();
+      }
+
+      const waveY = H * 0.65;
+      for (let w = 0; w < 3; w++) {
+        const off   = w * 0.8;
+        const alpha = 0.06 - w * 0.015;
+        const amp   = 18 - w * 4;
+        ctx.beginPath();
+        ctx.moveTo(0, waveY + w * 12);
+        for (let x = 0; x <= W; x += 4) {
+          const y = waveY + w * 12
+            + Math.sin((x / W) * Math.PI * 4 + t * 0.8 + off) * amp
+            + Math.sin((x / W) * Math.PI * 7 + t * 0.5 + off) * (amp * 0.4);
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(W, H);
+        ctx.lineTo(0, H);
+        ctx.closePath();
+        const wg = ctx.createLinearGradient(0, waveY, 0, H);
+        wg.addColorStop(0, `rgba(30,100,160,${alpha + 0.08})`);
+        wg.addColorStop(1, `rgba(10,40,90,${alpha + 0.15})`);
+        ctx.fillStyle = wg;
+        ctx.fill();
+      }
+
+      particles = particles.filter(p => p.y > -10 && p.o > 0.01);
+      while (particles.length < 60) spawnParticle(true);
+      particles.forEach(p => {
+        p.y    += p.vy;
+        p.x    += p.vx;
+        p.life += 0.003;
+        const fade = Math.sin(p.life * Math.PI);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(120,210,255,${p.o * fade})`;
+        ctx.fill();
+      });
+
+      t += 0.01;
+      requestAnimationFrame(draw);
+    }
+
     resize();
     initStars();
-  });
+    draw();
+    window.addEventListener('resize', () => { resize(); initStars(); });
 
-  const audio = document.getElementById('bg-audio');
-  audio.volume = 0.15;
+    const audio = document.getElementById('bg-audio');
+    audio.volume = 0.15;
+    document.addEventListener('click', () => {
+      if (audio.paused) audio.play();
+    }, { once: true });
+  </script>
 
-  document.addEventListener('click', () => {
-    if (audio.paused) audio.play();
-  }, { once: true });
-</script>
-</body>
-</html>
+
+</body></html>
