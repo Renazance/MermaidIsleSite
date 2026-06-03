@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0044)file:///Users/matthew/Downloads/index_2.html -->
+<!-- saved from url=(0044)file:///Users/matthew/Downloads/index_3.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,30 +64,10 @@
     0%, 100% { opacity: 0.9; text-shadow: 0 0 60px rgba(100,200,255,0.3), 0 2px 4px rgba(0,0,0,0.8); }
     50% { opacity: 1; text-shadow: 0 0 80px rgba(100,220,255,0.6), 0 2px 4px rgba(0,0,0,0.8); }
   }
-
-  #audio-btn {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 100;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    transition: background 0.2s;
-  }
-  #audio-btn:hover { background: rgba(255,255,255,0.15); }
 </style>
 </head>
 <body>
 <audio id="bg-audio" loop="" src="Mermaid_Official_Theme.mp3"></audio>
-<button id="audio-btn" title="Toggle music">🔇</button>
 <div class="scene">
   <canvas id="c" width="1512" height="798"></canvas>
   <div class="title-wrap">
@@ -209,21 +189,11 @@ draw();
 window.addEventListener('resize', () => { resize(); initStars(); });
 
 const audio = document.getElementById('bg-audio');
-const btn = document.getElementById('audio-btn');
 audio.volume = 0.15;
-let playing = false;
 
-btn.addEventListener('click', () => {
-  if (playing) {
-    audio.pause();
-    btn.textContent = '🔇';
-    playing = false;
-  } else {
-    audio.play();
-    btn.textContent = '🔊';
-    playing = true;
-  }
-});
+document.addEventListener('click', () => {
+  if (audio.paused) audio.play();
+}, { once: true });
 </script>
 
 
